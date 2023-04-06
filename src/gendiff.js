@@ -1,19 +1,29 @@
-import { Command } from 'commander';
+import * as fs from 'node:fs';
+import _ from 'lodash';
+const { sortBy, uniq } = _;
 
+export default (filepath1, filepath2) => {
+  const data1 = JSON.parse(fs.readFileSync(filepath1, 'utf-8'));
+  const data2 = JSON.parse(fs.readFileSync(filepath2, 'utf-8'));
 
-export default () => { 
-  const program = new Command();
+  const allKeys = [...Object.keys(data1), ...Object.keys(data2)];
+  const keys = uniq(sortBy(allKeys));
 
-  program
-    .name('gendiff')
-    .description('Compares two configuration files and shows a difference.')
-    .version('1.0.0');
+  const result = keys.reduce((acc, key) => {
+    if (data1.hasOwnProperty(key) && data2.hasOwnProperty(key)) {
+      if (data1[key] !== data2[key]) {
+        acc.push(` - ${key}: ${data1[key]}`);
+        acc.push(` + ${key}: ${data2[key]}`);
+      }
+      return acc;
+    }
+    if (data1.hasOwnProperty(key)) {
+      acc.push(` - ${key}: ${data1[key]}`);
+      return acc;
+    }
+    acc.push(` + ${key}: ${data2[key]}`);
+    return acc;
+  }, [])
 
-  program
-    .option('-f, --format <type>', 'output format')
-    .argument('<filepath1>')
-    .argument('<filepath2>');
-
-  program.parse();
+  return result.join('\n');
 };
-
