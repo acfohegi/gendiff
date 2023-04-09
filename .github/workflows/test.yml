@@ -14,3 +14,4 @@ jobs:
       - run: make test-coverage
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_COVERAGE }}
+        CC_TEST_REPORTER_LINK: 'https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64'
