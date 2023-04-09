@@ -1,5 +1,6 @@
 import * as fs from 'node:fs';
 import _ from 'lodash';
+
 const { sortBy, uniq } = _;
 
 export default (filepath1, filepath2) => {
@@ -10,20 +11,20 @@ export default (filepath1, filepath2) => {
   const keys = uniq(sortBy(allKeys));
 
   const result = keys.reduce((acc, key) => {
-    if (data1.hasOwnProperty(key) && data2.hasOwnProperty(key)) {
+    if (Object.hasOwn(data1, key) && Object.hasOwn(data2, key)) {
       if (data1[key] !== data2[key]) {
         acc.push(` - ${key}: ${data1[key]}`);
         acc.push(` + ${key}: ${data2[key]}`);
       }
       return acc;
     }
-    if (data1.hasOwnProperty(key)) {
+    if (Object.hasOwn(data1, key)) {
       acc.push(` - ${key}: ${data1[key]}`);
       return acc;
     }
     acc.push(` + ${key}: ${data2[key]}`);
     return acc;
-  }, [])
+  }, []);
 
   return result.join('\n');
 };
