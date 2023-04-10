@@ -1,11 +1,11 @@
-import * as fs from 'node:fs';
 import _ from 'lodash';
+import parse from './parsers.js';
 
 const { sortBy, uniq } = _;
 
 export default (filepath1, filepath2) => {
-  const data1 = JSON.parse(fs.readFileSync(filepath1, 'utf-8'));
-  const data2 = JSON.parse(fs.readFileSync(filepath2, 'utf-8'));
+  const data1 = parse(filepath1);
+  const data2 = parse(filepath2);
 
   const allKeys = [...Object.keys(data1), ...Object.keys(data2)];
   const keys = uniq(sortBy(allKeys));
