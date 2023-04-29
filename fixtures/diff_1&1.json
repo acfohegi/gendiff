@@ -1,0 +1,87 @@
+[
+  {
+    "key": "common",
+    "children": [
+      {
+        "status": "equal",
+        "key": "setting1",
+        "value": "Value 1"
+      },
+      {
+        "status": "equal",
+        "key": "setting2",
+        "value": 200
+      },
+      {
+        "status": "equal",
+        "key": "setting3",
+        "value": true
+      },
+      {
+        "key": "setting6",
+        "children": [
+          {
+            "key": "doge",
+            "children": [
+              {
+                "status": "equal",
+                "key": "wow",
+                "value": ""
+              }
+            ]
+          },
+          {
+            "status": "equal",
+            "key": "key",
+            "value": "value"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "group1",
+    "children": [
+      {
+        "status": "equal",
+        "key": "baz",
+        "value": "bas"
+      },
+      {
+        "status": "equal",
+        "key": "foo",
+        "value": "bar"
+      },
+      {
+        "key": "nest",
+        "children": [
+          {
+            "status": "equal",
+            "key": "key",
+            "value": "value"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "group2",
+    "children": [
+      {
+        "status": "equal",
+        "key": "abc",
+        "value": 12345
+      },
+      {
+        "key": "deep",
+        "children": [
+          {
+            "status": "equal",
+            "key": "id",
+            "value": 45
+          }
+        ]
+      }
+    ]
+  }
+]
