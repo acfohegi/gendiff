@@ -14,6 +14,11 @@ test('plain format', () => {
   expect(format(diff, 'plain')).toBe(formatted);
 });
 
+test('json format', () => {
+  const formatted = fs.readFileSync('fixtures/formatted_diffs/json_1&2.txt', 'utf-8');
+  expect(format(diff, 'json')).toBe(formatted);
+});
+
 test('unknown format', () => {
   expect(() => format(diff, 'plylish')).toThrow('unknown format');
 });
