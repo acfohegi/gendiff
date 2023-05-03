@@ -1,4 +1,4 @@
-import gendiff from '../src/diff.js';
+import differ from '../src/differ.js';
 import parse from '../src/parsers.js';
 
 const diff = parse('fixtures/diffs/diff_1&2.json');
@@ -8,7 +8,7 @@ test('json and json', () => {
   const path2 = 'fixtures/files/file2.json';
   const data1 = parse(path1);
   const data2 = parse(path2);
-  expect(gendiff(data1, data2)).toStrictEqual(diff);
+  expect(differ(data1, data2)).toStrictEqual(diff);
 });
 
 test('yml and yaml', () => {
@@ -16,7 +16,7 @@ test('yml and yaml', () => {
   const path2 = 'fixtures/files/file2.yaml';
   const data1 = parse(path1);
   const data2 = parse(path2);
-  expect(gendiff(data1, data2)).toStrictEqual(diff);
+  expect(differ(data1, data2)).toStrictEqual(diff);
 });
 
 test('json and yaml', () => {
@@ -24,7 +24,7 @@ test('json and yaml', () => {
   const path2 = 'fixtures/files/file2.yaml';
   const data1 = parse(path1);
   const data2 = parse(path2);
-  expect(gendiff(data1, data2)).toStrictEqual(diff);
+  expect(differ(data1, data2)).toStrictEqual(diff);
 });
 
 test('yml and json are equal', () => {
@@ -33,7 +33,7 @@ test('yml and json are equal', () => {
   const path2 = 'fixtures/files/file1.json';
   const data1 = parse(path1);
   const data2 = parse(path2);
-  expect(gendiff(data1, data2)).toStrictEqual(diff1);
+  expect(differ(data1, data2)).toStrictEqual(diff1);
 });
 
 test('empty files', () => {
@@ -41,5 +41,5 @@ test('empty files', () => {
   const path2 = 'fixtures/files/empty.json';
   const data1 = parse(path1);
   const data2 = parse(path2);
-  expect(gendiff(data1, data2)).toStrictEqual([]);
+  expect(differ(data1, data2)).toStrictEqual([]);
 });
