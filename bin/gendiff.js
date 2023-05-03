@@ -16,5 +16,3 @@ program
   .action((filepath1, filepath2) => gendiff(filepath1, filepath2, program.opts().format));
 
 program.parse();
-
-export default gendiff;
