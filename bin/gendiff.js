@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import format from '../src/formatter.js';
+import format from '../src/formatters/index.js';
 import gendiff from '../src/diff.js';
 import parse from '../src/parsers.js';
 
@@ -19,7 +19,8 @@ program
     const data1 = parse(filepath1);
     const data2 = parse(filepath2);
     const diff = gendiff(data1, data2);
-    console.log(format(diff));
+    const formatted = format(diff, program.opts().format);
+    console.log(formatted);
   });
 
 program.parse();
