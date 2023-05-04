@@ -38,26 +38,25 @@ const hasChildren = (node) => {
 };
 
 export default (diff) => {
-  const result = [];
-
-  const format = (objects, keys) => {
-    objects.forEach((obj) => {
+  const format = (objects, keys = []) => {
+    const result = objects.reduce((lines, obj) => {
       if (hasChildren(obj)) {
         const newKeys = [...keys, obj.key];
-        format(obj.children, newKeys);
-        return;
+        const newLines = format(obj.children, newKeys);
+        return [...lines, ...newLines];
       }
       const status = getStatus(obj);
       if (!status) {
-        return;
+        return lines;
       }
       const propName = getPropertyName([...keys, obj.key]);
 
       const line = `Property ${propName} ${status}`;
-      result.push(line);
-    });
+      return [...lines, line];
+    }, []);
+    return result;
   };
 
-  format(diff, []);
+  const result = format(diff);
   return result.join('\n');
 };
