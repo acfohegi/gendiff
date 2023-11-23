@@ -1,22 +1,19 @@
-import * as fs from 'node:fs';
+import { readFileSync } from 'node:fs';
 import format from '../src/formatters/index.js';
 import parse from '../src/parsers.js';
 
 const diff = parse('fixtures/diffs/diff_1&2.json');
+const readFormatted = (filename) => readFileSync(`fixtures/formatted_diffs/${filename}`, 'utf-8');
 
-test('stylish format', () => {
-  const formatted = fs.readFileSync('fixtures/formatted_diffs/stylish_1&2.txt', 'utf-8');
-  expect(format(diff, 'stylish')).toBe(formatted);
-});
+const testCases = [
+  ['stylish', 'stylish_1&2.txt'],
+  ['plain', 'plain_1&2.txt'],
+  ['json', 'json_1&2.txt'],
+];
 
-test('plain format', () => {
-  const formatted = fs.readFileSync('fixtures/formatted_diffs/plain_1&2.txt', 'utf-8');
-  expect(format(diff, 'plain')).toBe(formatted);
-});
-
-test('json format', () => {
-  const formatted = fs.readFileSync('fixtures/formatted_diffs/json_1&2.txt', 'utf-8');
-  expect(format(diff, 'json')).toBe(formatted);
+test.each(testCases)('%s format', (formatName, fixture) => {
+  const formatted = readFormatted(fixture);
+  expect(format(diff, formatName)).toBe(formatted);
 });
 
 test('unknown format', () => {
